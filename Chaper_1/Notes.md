@@ -75,9 +75,9 @@ int main()
 int main()
 {
     int sum = 0;
-                                                      // sum values from 1 through 10 inclusive
-    for (int val = 1; val <= 10; ++val)               // header: an initstatement, a condition, and an expression
-      sum += val;                                     // equivalent to sum = sum + val;
+    // sum values from 1 through 10 inclusive
+    for (int val = 1; val <= 10; ++val)  // header: an initstatement, a condition, and an expression
+      sum += val;  // equivalent to sum = sum + val;
     std::cout << "Sum of 1 to 10 inclusive is "
               << sum << std::endl;
     return 0;
@@ -89,4 +89,23 @@ int main()
 - Repeat the test in step 2, continuing with the remaining steps as long as the condition is true.
 ### 9. if
 - `==`: the equality operator
-
+### 10. class
+A class defines a type along with a collection of operations that are related to that type.
+```
+Sales_item item;
+```
+- we are saying that item is an object of type Sales_item. We often contract the phrase “an object of type Sales_item” to “a Sales_item object” or even more simply to “a Sales_item.”
+- the class author determines all the operations that can be used on objects of the class type.
+```
+#include <iostream>
+#include "Sales_item.h"
+```
+- Headers from the standard library are enclosed in angle brackets (< >). 
+- Those that are not part of the library are enclosed in **double quotes (" ")**.
+- **member function/ methods**: A member function is a function that is defined as part of a class. 
+```
+item1.isbn() == item2.isbn()  // isbn is a member function or method
+```
+- `''.''`operator: The dot operator applies only to objects of class type.
+- `()`operator: The call operator is a pair of parentheses that enclose a (possibly empty) list of arguments.
+- argument: Value passed to a function.
