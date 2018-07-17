@@ -43,3 +43,30 @@ backslash \\        question mark \?     single quote \'
 carriage return \r  formfeed \f
 ```
 - `ture` or `false`: are literals of type bool
+### 6. Variable Definitions
+```
+int sum = 0, value, units_sold = 0;  
+// value without an initializer, the variable is default initialized.
+// Such variables are given the “default” value. What that default value is depends on
+// the type of the variable and may also depend on where the variable is defined.
+// Variables defined outside any function body are initialized to zero.
+// variables of built-in type .defined inside a function are uninitialized.
+// The value of an uninitialized variable of built-in type is undefined causing an error.
+```
+A simple variable definition consists of a **type specifier**, followed by a list of one or more **variable names** separated by **commas**, and ends with a **semicolon**.
+- objective: an object is a region of memory that has a type.
+```
+double price = 109.99, discount = price * 0.16;  
+//it is possible to initialize a variable to the value of one defined
+//earlier in the same definition.
+```
+- Initialization and assignment are different operations in C++.
+初始化不是赋值，初始化的含义是创建变量时赋予其一个初始值，而赋值的含义是把对象的当前值擦除，而以一个新值来替代。
+```
+// four different ways to define an int variable
+int units_sold = 0;
+int units_sold = {0};
+int units_sold{0};
+int units_sold(0);
+```
+- **initializing every object of built-in type**
