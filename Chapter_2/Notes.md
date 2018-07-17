@@ -138,5 +138,5 @@ int &r3 = i3, &r4 = i2; // both r3 and r4 are references
 - 允许在一条与剧中定于多个引用
 - the type of a reference and the object to which the reference refers must match exactly.
 ```
-int &rval1 = 1.01;  // WRONG. `error`: initializer must be an object
+int &rval1 = 1.01;  // WRONG. error: initializer must be an object
 ```
