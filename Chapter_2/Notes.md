@@ -140,3 +140,46 @@ int &r3 = i3, &r4 = i2; // both r3 and r4 are references
 ```
 int &rval1 = 1.01;  // WRONG. error: initializer must be an object
 ```
+### 11. Pointers
+A pointer holds the address of another object. We get the address of an object by usin the address-of operator(the `&`operator):
+```
+int ival = 42;
+int *p = &ival; // p holds the address of ival; p is a pointer to ival
+```
+- Because references are not objects, they don’t have addresses. Hence, we may not define a pointer to a reference.
+```
+int first = 42, second = 43;
+int *p = &first;
+std::cout << "  &first: " << &first << std::endl;
+std::cout << "  *p: " << *p << std::endl;
+std::cout << "  p: " << p << std::endl;
+p = &second;
+std::cout << "  &second: " << &second << std::endl;
+std::cout << "  *p: " << *p << std::endl;
+std::cout << "  p: " << p << std::endl;
+p = &first;
+std::cout << "  &first: " << &first << std::endl;
+std::cout << "  *p: " << *p << std::endl;
+std::cout << "  p: " << p << std::endl;
+int &j = *p;
+std::cout << "  &j: " << &j << std::endl;
+std::cout << "  *p: " << *p << std::endl;
+std::cout << "  p: " << p << std::endl;
+```
+输出：
+```
+&first: 0076F980
+*p: 42
+p: 0076F980
+&second: 0076F974
+*p: 43
+p: 0076F974
+&first: 0076F980
+*p: 42
+p: 0076F980
+&j: 00ECFEE0
+*p: 42
+p: 00ECFEE0
+```
+- `*`:作用就是把p里存的地址里的**值**取出来
+- `p = &second`:由`&`把`second`这个变量的地址取出来，赋给`p`,所以p里存的是地址。但是`*p`是把p存的地址里对应的值取出来。
