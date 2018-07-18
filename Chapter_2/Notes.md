@@ -183,3 +183,46 @@ p: 00ECFEE0
 ```
 - `*`:作用就是把p里存的地址里的**值**取出来
 - `p = &second`:由`&`把`second`这个变量的地址取出来，赋给`p`,所以`p`里存的是地址。但是`*p`是把p存的地址里对应的值取出来。
+```
+int *ip = i;  //但这样是illegal
+```
+- We may dereference only a valid pointer that points to an object.
+- **null pointer**: A null pointer does not point to any object.以下两个方法都可行：
+```
+int *p1 = nullptr; // equivalent to int *p1 = 0;
+int *p2 = 0; // directly initializes p2 from the literal constant 0
+```
+- 记住要**Initialize all Pointers**
+- If the pointer is 0, then the condition is false:
+```
+int ival = 1024;
+int *pi = 0; // pi is a valid, null pointer
+int *pi2 = &ival; // pi2 is a valid pointer that holds the address of ival
+if (pi) // pi has value 0, so condition evaluates as false
+// ...
+if (pi2) // pi2 points to ival, so it is not 0; the condition evaluates as true
+// ...
+```
+- Given two valid pointers of the same type, we can compare them using the equality (==) or inequality (!=) operators.
+- `void*`: is a special pointer type that can hold the address of any object. But the type of the object at that address is unknown. We cannot use a `void*` to operate on the object it addresses.
+```
+int ival = 1024;
+int *pi = &ival; // pi points to an int
+int **ppi = &pi; // ppi points to a pointer to an int
+```
+```
+&ival: 004FFB2C
+*pi: 1024
+&pi: 004FFB20
+*ppi: 004FFB2C
+**ppi: 1024
+```
+### 13. const Qualifier
+A variable unchangeable by defining the variable’s type as `const`:
+```
+const int bufSize = 512; // input buffer size
+bufSize = 512; // error: attempt to write to const object
+```
+
+
+
