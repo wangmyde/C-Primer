@@ -223,6 +223,14 @@ A variable unchangeable by defining the variable’s type as `const`:
 const int bufSize = 512; // input buffer size
 bufSize = 512; // error: attempt to write to const object
 ```
+- By Default, **`const` Objects Are Local to a File**
+```
+// file_1.cc defines and initializes a const that is accessible to other files
+extern const int bufSize = fcn();
+// file_1.h
+extern const int bufSize; // same bufSize as defined in file_1.cc
+```
+- To share a `const` object among multiple files, you must define the variable as `extern`.
 
 
 
