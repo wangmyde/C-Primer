@@ -217,7 +217,7 @@ int **ppi = &pi; // ppi points to a pointer to an int
 *ppi: 004FFB2C
 **ppi: 1024
 ```
-### 13. const Qualifier
+### 12. const Qualifier
 A variable unchangeable by defining the variable’s type as `const`:
 ```
 const int bufSize = 512; // input buffer size
@@ -231,6 +231,30 @@ extern const int bufSize = fcn();
 extern const int bufSize; // same bufSize as defined in file_1.cc
 ```
 - To share a `const` object among multiple files, you must define the variable as `extern`.
-
-
-
+### 13. Type Aliases
+A **type alias** is a name that is a synonym for another type.
+- use a `typedef`
+```
+typedef double wages; // wages is a synonym for double
+typedef wages base, *p; // base is a synonym for double, p for double*
+```
+- use a `using`
+```
+using SI = Sales_item; // SI is a synonym for Sales_item
+```
+```
+wages hourly, weekly; // same as double hourly, weekly;
+SI item; // same as Sales_item item
+```
+### 14. `auto` 
+we can let the compiler figure out the type for us by using the `auto` type specifier. `auto` tells the compiler to deduce the typefrom the initializer. By implication, a variable that uses auto as its type specifier must have an initializer.
+```
+// the type of item is deduced from the type of the result of adding val1 and val2
+auto item = val1 + val2; // item initialized to the result of val1 + val2
+```
+- we can define multiple variables using `auto`
+```
+auto i = 0, *p = &i; // ok: i is int and p is a pointer to int
+auto sz = 0, pi = 3.14; // error: inconsistent types for sz and pi
+```
+### 15. The `decltype` Type Specifier
