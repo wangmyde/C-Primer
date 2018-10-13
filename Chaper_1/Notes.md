@@ -11,7 +11,7 @@ int main()
 - ( ): a paremeter list enclosed in parentheses
 - a function body: a block of statements starting with an open curly brace and ending with a close curly
 - When a return statement includes a value, the value returned must have a type that is compatible with the return type of the function. In this case, the return type of main is int and the return value is 0, which is an int.
-- **Semicolons** markthe end of most statements in C++
+- **Semicolons** mark the end of most statements in C++
 ### 2. Built-in type Type, such as int, defined by the language.
 ### 3. Running the Compiler from the Command Line
 > - `cl /EHsc ex1_1.cpp`: cl command invokes the compiler, and /EHsc is the compiler option that turns on standard exception handling.  
