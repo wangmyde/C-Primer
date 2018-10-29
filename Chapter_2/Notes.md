@@ -217,6 +217,24 @@ int **ppi = &pi; // ppi points to a pointer to an int
 *ppi: 004FFB2C
 **ppi: 1024
 ```
+
+关于定义的格式：
+We say that this definition might be misleading because it suggests that `int*` is the type of each variable declared in that statement.
+```
+int* p; // legal but might be misleading
+int* p1, p2; // p1 is a pointer to int; p2 is an int
+```
+There are **two** common styles used to define multiple variables with pointer or reference type.
+```
+int *p1, *p2; // both p1 and p2 are pointers to int
+```
+This style emphasizes that the variable has the indicated compound type.
+```
+int* p1; // p1 is a pointer to int
+int* p2; // p2 is a pointer to int
+```
+This style emphasizes that the declaration defines a compound type.
+
 ### 12. const Qualifier
 A variable unchangeable by defining the variable’s type as `const`:
 ```
