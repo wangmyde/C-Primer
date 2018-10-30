@@ -14,6 +14,7 @@ int main()
     std::cout << i; // ok: explicitly use cout from namepsace std
     return 0;
 }
+```
 Each `using` declaration introduces a single namespace member.
 ```
 #include <iostream>
