@@ -29,7 +29,6 @@ int main()
     << " is " << v1 + v2 << endl;
     return 0;
 }
+```
 **Headers Should Not Include `using` Declarations**
-Code inside headers (§ 2.6.3, p. 76) ordinarily should not use using declarations. The reason is that the contents of a header are copied into the including program’s
-text. If a header has a using declaration, then every program that includes that header gets that same using declaration. As a result, a program that didn’t intend to
-use the specified library name might encounter unexpected name conflicts.
+Code inside headers (§ 2.6.3, p. 76) ordinarily should not use using declarations. The reason is that the contents of a header are copied into the including program’s text. If a header has a using declaration, then every program that includes that header gets that same using declaration. As a result, a program that didn’t intend to use the specified library name might encounter unexpected name conflicts.
