@@ -35,7 +35,7 @@ int main()
 Code inside headers ordinarily should not use using declarations. The reason is that the contents of a header are copied into the including program’s text. If a header has a using declaration, then every program that includes that header gets that same using declaration. As a result, a program that didn’t intend to use the specified library name might encounter unexpected name conflicts.
 
 ### 5. Arrays
-Arrays have fixed size. If you don’t know exactly how many elements you need, use a `vector`.
+#### 1. Arrays have fixed size. If you don’t know exactly how many elements you need, use a `vector`.
 ```
 unsigned cnt = 42; // not a constant expression
 constexpr unsigned sz = 42; // constant expression
@@ -47,7 +47,7 @@ string strs[get_size()]; // ok if get_size is constexpr, error otherwise
 ```
 When we define an array, we must specify a type for the array. We cannot use `auto` to deduce the type from a list of initializers. There are no arrays of `reference`.
 
-Explicitly Initializing Array Elements
+#### 2. Explicitly Initializing Array Elements
 ```
 int ia1[sz] = {0,1,2}; // array of three ints with values 0, 1, 2
 int a2[] = {0, 1, 2}; // an array of dimension 3
@@ -56,7 +56,7 @@ string a4[3] = {"hi", "bye"}; // same as a4[] = {"hi", "bye", ""}
 int a5[2] = {0,1,2}; // error: too many initializers
 ```
 
-Character Arrays Are Special
+#### 3. Character Arrays Are Special
 ```
 char a1[] = {'C', '+', '+'}; // list initialization, no null
 char a2[] = {'C', '+', '+', '\0'}; // list initialization, explicit null
@@ -65,7 +65,7 @@ const char a4[6] = "Daniel"; // error: no space for the null!
 ```
 The dimension of a1 is 3; the dimensions of a2 and a3 are both 4. The definition of a4 is in error. Although the literal contains only six explicit characters, the array size must be at least seven—six to hold the literal and one for the null.
 
-**No Copy or Assignment**
+#### 4. **No Copy or Assignment**
 We cannot initialize an array as a copy of another array, nor is it legal to assign one array to another是不准数组和数组之间，而不是数组元素之间的赋值:
 ```
 int a[] = {0, 1, 2}; // array of three ints
@@ -73,7 +73,7 @@ int a2[] = a; // error: cannot initialize one array with another
 a2 = a; // error: cannot assign one array to another
 ```
 
-Understanding Complicated Array Declarations
+#### 5. Understanding Complicated Array Declarations
 ```
 int *ptrs[10]; // ptrs is an array of ten pointers to int
 int &refs[10] = /* ? */; // error: no arrays of references
@@ -85,11 +85,13 @@ int (&arrRef)[10] = arr; // arrRef refers to an array of ten ints
 Accessing the Elements of an Array
 When we use a variable to subscript an array, we normally should define that variable to have type `size_t`. `size_t` is a machine-specific unsigned type that is guaranteed to be large enough to hold the size of any object in memory. The size_t type is defined in the `cstddef` header, which is the C++ version of the stddef.h header from the C library.
 
-**Pointers and Arrays**
+#### 6. **Pointers and Arrays**
 ```
 string nums[] = {"one", "two", "three"}; // array of strings
 string *p = &nums[0]; // p points to the first element in nums
+// 输出 *p：one
 string *p2 = nums; // equivalent to p2 = &nums[0]
+// 输出 *p2：one
 ```
 也就是说，使用数组类型的对象==使用一个该数组首元素的指针。即拍p2其实是首元素的地址。
 we can use the increment operator to move from one element in an array to the next:
@@ -99,7 +101,7 @@ int *p = arr; // p points to the first element in arr
 ++p; // p points to arr[1]
 ```
 
-The Library `begin` and `end` Functions
+#### 7. The Library `begin` and `end` Functions
 ```
 int ia[] = {0,1,2,3,4,5,6,7,8,9}; // ia is an array of ten ints
 int *beg = begin(ia); // pointer to the first element in ia
@@ -114,7 +116,7 @@ while (pbeg != pend && *pbeg >= 0)
 ++pbeg;
 ```
 
-Pointer Arithmetic
+#### 8. Pointer Arithmetic
 ```
 constexpr size_t sz = 5;
 int arr[sz] = {1,2,3,4,5};
@@ -142,14 +144,14 @@ while (b < e) {
 ```
 两个指针指向同一个数组的元素可进行比较。但指向不同的数组则不行。
 
-Interaction between Dereference and Pointer Arithmetic
+#### 9. Interaction between Dereference and Pointer Arithmetic
 ```
 int ia[] = {0,2,4,6,8}; // array with 5 elements of type int
 int last = *(ia + 4); // ok: initializes last to 8, the value of ia[4]
 ```
 The expression `*(ia + 4)` calculates the address four elements past `ia` and dereferences the resulting pointer. This expression is equivalent to writing `ia[4]`.`*(ia + 4)`的括号是必须的。
 
-Subscripts and Pointers
+10. Subscripts and Pointers
 ```
 int ia[] = {0,2,4,6,8}; // array with 5 elements of type int
 int i = ia[2]; // ia is converted to a pointer to the first element in ia
@@ -171,7 +173,7 @@ ints
 int arr[10][20][30] = {0}; // initialize all elements to 0
 ```
 
-Initializing the Elements of a Multidimensional Array
+#### 1. Initializing the Elements of a Multidimensional Array
 > 
 ```
 int ia[3][4] = { // three elements; each element is an array of size 4
@@ -195,7 +197,7 @@ int ia[3][4] = {{ 0 }, { 4 }, { 8 }};
 // explicitly initialize row 0; the remaining elements are value initialized
 int ix[3][4] = {0, 3, 6, 9};
 ```
-Subscripting a Multidimensional Array
+#### 2. Subscripting a Multidimensional Array
 ```
 // assigns the first element of arr to the last element in the last row of ia
 ia[2][3] = arr[0][0][0];
@@ -203,7 +205,7 @@ ia[2][3] = arr[0][0][0];
 ```
 constexpr size_t rowCnt = 3, colCnt = 4;
 
-Pointers and Multidimensional Arrays
+#### 3. Pointers and Multidimensional Arrays
 
 int ia[rowCnt][colCnt]; // 12 uninitialized elements
 // for each row
@@ -214,4 +216,91 @@ for (size_t i = 0; i != rowCnt; ++i) {
         ia[i][j] = i * colCnt + j;
     }
 }
+```
+#### 4.int `*p[n]`和`int (*p)[n]`
+```
+int a = 1, b = 2, c = 3, d = 4;
+int *p[4] = {&a, &b, &c, &d};
+cout << "&a: " << &a << endl;
+cout << "p: " << p << endl;
+cout << "&p: " << &p << endl;
+cout << "*p[0]: " << *p[0] << endl;
+```
+输出结果：
+```
+&a: 00CFF7CC
+p: 00CFF790
+&p: 00CFF790
+*p[0]: 1
+```
+可见，p是一个有四个元素的数组，每个元素是一个指针，每个元素里存放的是a~e的地址。当执行  
+> `cout << p: " << p << endl;`
+>> `p: 00CFF790`
+也就是说，和其他所有有数组一样，p代表p数组的首个元素的指针，即&p[0]。
+
+```
+int e[4] = {12, 23, 34, 45};
+int (*q)[4];
+q = &e;
+cout << "q: " << q << endl;
+cout << "&e: " << &e << endl;
+cout << "e: " << e << endl;
+for (int i = 0; i < 4; ++i)
+{
+	cout << "&e[" << i << "]: " << &e[i] << endl;
+	cout << "q[" << i << "]: " << q[i] << endl;
+}	
+ ```
+ 输出为：
+ ```
+q: 00CFF778
+&e: 00CFF778
+e: 00CFF778
+&e[0]: 00CFF778
+q[0]: 00CFF778
+&e[1]: 00CFF77C
+q[1]: 00CFF788
+&e[2]: 00CFF780
+q[2]: 00CFF798
+&e[3]: 00CFF784
+q[3]: 00CFF7A8
+```
+`p`即为一个指针，是一个指向含有四个整数的数组，即`q = &e;`==> `q: 00CFF778` `&e: 00CFF778`。q不是一个数组，只是一个指针，故  
+> `cout << "q: " << q << endl;`
+>> `q: 00CFF778` == `&e: 00CFF778`  
+即`q == &e`，输出q就是输出q里存放的e[0]的地址。
+
+```
+int ia[3][4] = { 11,10,9,8,7,6,5,4,3,2,1,0 };
+	int (*p)[4] = ia;
+	cout << "*p: " << *p << endl;
+	// 输出 *p: 006FF750
+	for (auto p = ia; p != ia + 3; ++p)
+	{
+		cout << "p: " << p << endl;
+        // 输出 p: 006FF750
+		for (auto q = *p; q != *p + 4; ++q)
+		{
+			cout << "q type: "<< typeid(q).name() << endl;
+            // 输出 q type: int *
+			cout << "*p type: "<< typeid(*p).name() << endl;
+            // 输出 *p type: int [4]
+			cout << "q: " << q << endl;
+            // 输出 q: 006FF750
+			cout << "*p: " << *p << endl;
+            // 输出 *p: 006FF750
+			cout << "*q: " << *q << endl;
+            // 输出 *q: 11
+		}
+```
+```
+ia是一个由3个一维数组，每一维数组有4个元素的数组，即：
+[0]: 11 10 9 8
+[1]: 7  6  5 4
+[2]: 3  2  1 0
+int (*p)[4] = ia;
+即p是一个指针，此赋值则是使p指向ia的[0]这一行，即把这一行看作是
+一个三个元素数组的第一个元素。这个元素是一个包含4个元素的数组，
+即p是一个指向含有4个整数的数组。*p是一个地址，最开始时是11的地址，
+因为指向的是一个4个整数的数组，故*p + 1后，为10的地址。
 ```
