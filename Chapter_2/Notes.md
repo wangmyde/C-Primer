@@ -192,7 +192,7 @@ int *ip = i;  //但这样是illegal
 int *p1 = nullptr; // equivalent to int *p1 = 0;
 int *p2 = 0; // directly initializes p2 from the literal constant 0
 ```
-- 记住要**Initialize all Pointers**
+- 记住要**Initialize all Pointers!!!!!!!** 如果暂时没有地址用于初始化，就用`nullptr`或者`0`.
 - If the pointer is 0, then the condition is false:
 ```
 int ival = 1024;
