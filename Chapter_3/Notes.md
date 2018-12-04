@@ -34,6 +34,88 @@ int main()
 **Headers Should Not Include `using` Declarations**  
 Code inside headers ordinarily should not use using declarations. The reason is that the contents of a header are copied into the including program’s text. If a header has a using declaration, then every program that includes that header gets that same using declaration. As a result, a program that didn’t intend to use the specified library name might encounter unexpected name conflicts.
 
+### 3. Vector
+A `vector` is a collection of objects, all of which have the same type.
+A vector is a `class template`. To use a `vector`, we must include the appropriate header.
+```
+#include <vector>
+using std::vector;
+```
+`vector` is a template, not a type. Types generated from `vector` must include the element type, for example, `vector<int>`.
+`reference`s are not objects, we cannot have a vector of references.
+#### 1. Defining and Initializing `vector`s
+##### 1.1. 
+```
+vector<string> svec; // default initialization; svec has no elements
+vector<int> ivec; // initially empty
+// give ivec some values
+vector<int> ivec2(ivec); // copy elements of ivec into ivec2
+vector<int> ivec3 = ivec; // copy elements of ivec into ivec3
+vector<string> svec(ivec2); // error: svec holds strings, not ints
+```
+When we copy a `vector`, each element in the new `vector` is a copy of the corresponding element in the original `vector`. The two `vector`s must be the same type
+##### 1.2. List Initializing a `vector` 
+```
+vector<string> articles = {"a", "an", "the"};
+```
+The resulting `vector` has three elements; the first holds the `string` "a", the second holds "an", and the last is "the".
+```
+vector<string> v1{"a", "an", "the"}; // list initialization
+```
+##### 1.3. Creating a Specified Number of Elements
+```
+vector<int> ivec(10, -1); // ten int elements, each initialized to -1
+vector<string> svec(10, "hi!"); // ten strings; each element is "hi!"
+```
+##### 1.4 Value Initialization
+```
+vector<int> ivec(10); // ten elements, each initialized to 0
+vector<string> svec(10); // ten elements, each an empty string
+```
+two restrictions
+> some classes require that we always supply an explicit initializer. It is not possible to create vectors of such types by
+supplying only a size.  
+> The second restriction is that when we supply an element count without also supplying an initial value, we must use the direct form of initialization.
+##### 1.5 List Initializer or Element Count?
+```
+vector<int> v1(10); // v1 has ten elements with value 0
+vector<int> v2{10}; // v2 has one element with value 10
+vector<int> v3(10, 1); // v3 has ten elements with value 1
+vector<int> v4{10, 1}; // v4 has two elements with values 10 and 1
+vector<string> v5{"hi"}; // list initialization: v5 has one element
+vector<string> v6("hi"); // error: can't construct a vector from a string literal
+vector<string> v7{10}; // v7 has ten default-initialized elements
+vector<string> v8{10, "hi"}; // v8 has ten elements with value "hi"
+```
+#### 2. Adding Elements to a `vector`
+`push_back`:
+```
+vector<int> v2; // empty vector
+for (int i = 0; i != 100; ++i)
+v2.push_back(i); // append sequential integers to v2
+// at end of loop v2 has 100 elements, values 0 . . . 99
+```
+```
+// read words from the standard input and store them as elements in a vector
+string word;
+vector<string> text; // empty vector
+while (cin >> word) {
+text.push_back(word); // append word to text
+}
+```
+#### 3. Other `vector` Operations 见p148
+
+#### 4. Computing a `vector` Index
+```
+// count the number of grades by clusters of ten: 0--9, 10--19, . .. 90--99, 100
+vector<unsigned> scores(11, 0); // 11 buckets, all initially 0
+unsigned grade;
+while (cin >> grade) { // read the grades
+if (grade <= 100) // handle only valid grades
+++scores[grade/10]; // increment the counter for the current cluster
+}
+```
+
 ### 5. Arrays
 #### 1. Arrays have fixed size. If you don’t know exactly how many elements you need, use a `vector`.
 ```
